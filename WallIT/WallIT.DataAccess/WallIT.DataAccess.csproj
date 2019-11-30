@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WallIT.Common\WallIT.Common.csproj" />
+    <ProjectReference Include="..\WallIT.Shared\WallIT.Shared.csproj" />
   </ItemGroup>
 
 </Project>

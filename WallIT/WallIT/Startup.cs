@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using WallIT.Shared.Mapping;
+using WallIT.Logic.Mapping;
 using WallIT.Web.Infrastructure;
 
 namespace WallIT.Web

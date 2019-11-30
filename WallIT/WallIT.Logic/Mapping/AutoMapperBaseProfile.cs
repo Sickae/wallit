@@ -2,7 +2,7 @@
 using WallIT.DataAccess.Entities;
 using WallIT.Shared.DTOs;
 
-namespace WallIT.Shared.Mapping
+namespace WallIT.Logic.Mapping
 {
     public class AutoMapperBaseProfile : Profile
     {

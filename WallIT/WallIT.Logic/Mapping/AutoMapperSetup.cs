@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace WallIT.Shared.Mapping
+namespace WallIT.Logic.Mapping
 {
     public static class AutoMapperSetup
     {

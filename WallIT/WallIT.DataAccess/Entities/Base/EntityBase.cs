@@ -1,8 +1,9 @@
 ﻿using System;
+using WallIT.Shared.Interfaces.DomainModel.Entity;
 
 namespace WallIT.DataAccess.Entities.Base
 {
-    public abstract class EntityBase
+    public abstract class EntityBase : IEntity
     {
         public virtual int Id { get; set; }
 

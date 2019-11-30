@@ -1,8 +1,9 @@
 ﻿using System;
+using WallIT.Shared.Interfaces.DomainModel.DTO;
 
 namespace WallIT.Shared.DTOs.Base
 {
-    public abstract class DTOBase
+    public abstract class DTOBase : IDTO
     {
         public int Id { get; set; }
 

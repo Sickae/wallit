@@ -2,6 +2,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
 using WallIT.DataAccess.SessionBuilder;
+using WallIT.Logic.Interfaces.Managers;
+using WallIT.Logic.Interfaces.Repositories;
+using WallIT.Logic.Managers;
+using WallIT.Logic.Repositories;
 
 namespace WallIT.Web.Infrastructure
 {
@@ -9,18 +13,25 @@ namespace WallIT.Web.Infrastructure
     {
         public static void Setup(IServiceCollection services, IConfiguration configuration)
         {
-            #region Singletons
+            SetupSingletons(services, configuration);
+            SetupScoped(services);
+        }
 
+        private static void SetupSingletons(IServiceCollection services, IConfiguration configuration)
+        {
             services.AddSingleton(SessionFactory.BuildConfiguration(configuration.GetConnectionString("wallit"))
                 .BuildSessionFactory());
+        }
 
-            #endregion Singletons
-
-            #region Scoped
-
+        private static void SetupScoped(IServiceCollection services)
+        {
             services.AddScoped(x => x.GetService<ISessionFactory>().OpenSession());
 
-            #endregion Scoped
+            // Managers
+            services.AddScoped<ICreditCardManager, CreditCardManager>();
+
+            // Repositories
+            services.AddScoped<ICreditCardRepository, CreditCardRepository>();
         }
     }
 }
