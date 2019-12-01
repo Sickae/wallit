@@ -193,4 +193,5 @@ ModelManifest.xml
 .vs
 
 # Database files
-DB/
+DB/_CreateSchema.sql
+DB/_UpdateSchema.sql

@@ -1,0 +1,1 @@
+create table credit_card (id  serial, name varchar(255) not null, creation_date_utc timestamp, modification_date_utc timestamp, primary key (id))
