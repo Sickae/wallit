@@ -3,13 +3,14 @@ using NHibernate;
 using WallIT.DataAccess.Entities;
 using WallIT.Logic.Interfaces.Managers;
 using WallIT.Shared.DTOs;
+using WallIT.Shared.Interfaces.UnitOfWork;
 using WallIT.Shared.Transaction;
 
 namespace WallIT.Logic.Managers
 {
     public class CreditCardManager : ManagerBase<CreditCardEntity, CreditCardDTO>, ICreditCardManager
     {
-        public CreditCardManager(ISession session, IMapper mapper) : base(session, mapper)
+        public CreditCardManager(ISession session, IMapper mapper, IUnitOfWork unitOfWork) : base(session, mapper, unitOfWork)
         { }
 
         protected override TransactionResult ValidateSaving(CreditCardEntity entity)

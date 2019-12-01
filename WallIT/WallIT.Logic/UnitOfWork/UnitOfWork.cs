@@ -1,7 +1,5 @@
 ﻿using NHibernate;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using WallIT.Shared.Interfaces.UnitOfWork;
 
 namespace WallIT.Logic.UnitOfWork
@@ -12,10 +10,14 @@ namespace WallIT.Logic.UnitOfWork
 
         private ITransaction transaction;
 
+        public bool IsManagedTransaction { get; private set; }
+
         public UnitOfWork(ISession session)
         {
             _session = session;
             transaction = null;
+
+            IsManagedTransaction = false;
         }
 
         public void BeginTransaction()
@@ -24,6 +26,7 @@ namespace WallIT.Logic.UnitOfWork
                 throw new InvalidOperationException("There is an open transaction already!");
 
             transaction = _session.BeginTransaction();
+            IsManagedTransaction = true;
         }
 
         public void Commit()
@@ -33,6 +36,8 @@ namespace WallIT.Logic.UnitOfWork
                 throw new InvalidOperationException("There is no transaction to commit!");
 
             transaction.Commit();
+
+            IsManagedTransaction = false;
         }
 
         public void InTransaction(Action action)
@@ -56,6 +61,8 @@ namespace WallIT.Logic.UnitOfWork
             transaction.Rollback();
             transaction.Dispose();
             transaction = null;
+
+            IsManagedTransaction = false;
 
             _session.Clear();
         }

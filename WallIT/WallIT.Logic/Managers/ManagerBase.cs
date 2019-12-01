@@ -6,21 +6,24 @@ using System.Linq;
 using WallIT.Shared.Interfaces.DomainModel.DTO;
 using WallIT.Shared.Interfaces.DomainModel.Entity;
 using WallIT.Shared.Interfaces.Managers;
+using WallIT.Shared.Interfaces.UnitOfWork;
 using WallIT.Shared.Transaction;
 
 namespace WallIT.Logic.Managers
 {
-    public abstract class ManagerBase<TEntity, TDTO> : IManagerBase<TEntity, TDTO>
+    public abstract class ManagerBase<TEntity, TDTO> : IManagerBase<TEntity, TDTO>, IDisposable
         where TEntity : IEntity
         where TDTO : IDTO
     {
         protected readonly ISession _session;
         protected readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ManagerBase(ISession session, IMapper mapper)
+        public ManagerBase(ISession session, IMapper mapper, IUnitOfWork unitOfWork)
         {
             _session = session;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         #region Interface implementation
@@ -37,6 +40,8 @@ namespace WallIT.Logic.Managers
 
         public TransactionResult Save(TDTO dto)
         {
+            ManageTransaction();
+
             var isNew = dto.Id == 0;
 
             var entity = _mapper.Map(dto, isNew
@@ -44,6 +49,8 @@ namespace WallIT.Logic.Managers
                 : _session.Get<TEntity>(dto.Id));
 
             var result = ValidateSaving(entity);
+
+            OnSaving(entity);
 
             if (result.IsSuccess)
             {
@@ -53,6 +60,8 @@ namespace WallIT.Logic.Managers
                         _session.Save(entity);
 
                     result.Id = entity.Id;
+
+                    AfterSaving(entity);
                 }
                 catch (Exception ex)
                 {
@@ -69,6 +78,15 @@ namespace WallIT.Logic.Managers
             HandleTransactionErrors(result);
 
             return result;
+        }
+
+        public void Dispose()
+        {
+            if (_unitOfWork.IsManagedTransaction == false && _session.Transaction.IsActive)
+            {
+                _session.Transaction.Commit();
+                _session.Clear();
+            }
         }
 
         #endregion Interface implementation
@@ -103,6 +121,12 @@ namespace WallIT.Logic.Managers
 
             foreach (var error in errorsToRemove)
                 result.ErrorMessages.Remove(error);
+        }
+
+        private void ManageTransaction()
+        {
+            if (_unitOfWork.IsManagedTransaction == false)
+                _session.Transaction.Begin();
         }
 
         #endregion Private methods

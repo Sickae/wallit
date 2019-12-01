@@ -4,6 +4,8 @@ namespace WallIT.Shared.Interfaces.UnitOfWork
 {
     public interface IUnitOfWork
     {
+        bool IsManagedTransaction { get; }
+
         void BeginTransaction();
 
         void Commit();
