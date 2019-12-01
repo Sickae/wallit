@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallIT.Web", "WallIT\WallIT.Web.csproj", "{1328344E-4F81-4BE8-B711-DC1BAC16629E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallIT.Web", "WallIT.Web\WallIT.Web.csproj", "{1328344E-4F81-4BE8-B711-DC1BAC16629E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallIT.DataAccess", "WallIT.DataAccess\WallIT.DataAccess.csproj", "{835831BC-9780-49F4-B098-873709233AEF}"
 EndProject

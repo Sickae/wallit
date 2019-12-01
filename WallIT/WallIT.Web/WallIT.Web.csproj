@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
-    <PackageReference Include="BuildBundlerMinifier" Version="3.2.435" />
     <PackageReference Include="FluentValidation" Version="8.5.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.5.1" />
   </ItemGroup>
