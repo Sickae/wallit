@@ -65,14 +65,14 @@ namespace WallIT.Web
             services.AddDistributedMemoryCache();
 
             services.AddMvc(opt => opt.EnableEndpointRouting = false)
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation();
 
             AutoMapperSetup.Init(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -90,7 +90,6 @@ namespace WallIT.Web
 
             app.UseCookiePolicy();
             app.UseAuthentication();
-            app.UseAuthorization();
 
             app.UseMvc(routes =>
             {

@@ -1,5 +1,3 @@
-using System;
-
 namespace WallIT.Web.Models
 {
     public class ErrorViewModel

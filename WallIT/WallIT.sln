@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WallIT.Web", "WallIT.Web\WallIT.Web.csproj", "{1328344E-4F81-4BE8-B711-DC1BAC16629E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WallIT.DataAccess", "WallIT.DataAccess\WallIT.DataAccess.csproj", "{835831BC-9780-49F4-B098-873709233AEF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WallIT.Logic", "WallIT.Logic\WallIT.Logic.csproj", "{34D9B640-7DCE-4E82-8A8A-C688EEF3AA15}"
@@ -15,16 +13,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WallIT.Common", "WallIT.Com
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WallIT.TestDatabaseCreator", "WallIT.TestDatabaseCreator\WallIT.TestDatabaseCreator.csproj", "{CCC0E876-DF14-4862-B1FF-71B023DCEB80}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallIT.Web", "WallIT.Web\WallIT.Web.csproj", "{C3943354-9045-422A-AC5A-259B1686C003}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1328344E-4F81-4BE8-B711-DC1BAC16629E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1328344E-4F81-4BE8-B711-DC1BAC16629E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1328344E-4F81-4BE8-B711-DC1BAC16629E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1328344E-4F81-4BE8-B711-DC1BAC16629E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{835831BC-9780-49F4-B098-873709233AEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{835831BC-9780-49F4-B098-873709233AEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{835831BC-9780-49F4-B098-873709233AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{CCC0E876-DF14-4862-B1FF-71B023DCEB80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCC0E876-DF14-4862-B1FF-71B023DCEB80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCC0E876-DF14-4862-B1FF-71B023DCEB80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3943354-9045-422A-AC5A-259B1686C003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3943354-9045-422A-AC5A-259B1686C003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3943354-9045-422A-AC5A-259B1686C003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3943354-9045-422A-AC5A-259B1686C003}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
