@@ -3,6 +3,8 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WallIT.DataAccess.Entities.Base;
+using WallIT.Shared.DTOs.Base;
 using WallIT.Shared.Interfaces.DomainModel.DTO;
 using WallIT.Shared.Interfaces.DomainModel.Entity;
 using WallIT.Shared.Interfaces.Managers;
@@ -11,9 +13,9 @@ using WallIT.Shared.Transaction;
 
 namespace WallIT.Logic.Managers
 {
-    public abstract class ManagerBase<TEntity, TDTO> : IManagerBase<TEntity, TDTO>, IDisposable
-        where TEntity : IEntity
-        where TDTO : IDTO
+    public abstract class ManagerBase<TEntity, TDTO> : IManager<TEntity, TDTO>, IDisposable
+        where TEntity : EntityBase, IEntity, new()
+        where TDTO : DTOBase, IDTO, new()
     {
         protected readonly ISession _session;
         protected readonly IMapper _mapper;
@@ -48,11 +50,13 @@ namespace WallIT.Logic.Managers
                 ? (TEntity)Activator.CreateInstance(typeof(TEntity))
                 : _session.Get<TEntity>(dto.Id));
 
+            LoadReferences(entity);
+
             var result = ValidateSaving(entity);
 
             OnSaving(entity);
 
-            if (result.IsSuccess)
+            if (result.Succeeded)
             {
                 try
                 {
@@ -71,7 +75,7 @@ namespace WallIT.Logic.Managers
                         IsPublic = false,
                         Message = ex.Message
                     });
-                    result.IsSuccess = false;
+                    result.Succeeded = false;
                 }
             }
 
@@ -95,7 +99,7 @@ namespace WallIT.Logic.Managers
 
         protected virtual TransactionResult ValidateSaving(TEntity entity)
         {
-            return new TransactionResult();
+            return new TransactionResult { Succeeded = true };
         }
 
         protected virtual void OnSaving(TEntity entity)
@@ -127,6 +131,24 @@ namespace WallIT.Logic.Managers
         {
             if (_unitOfWork.IsManagedTransaction == false)
                 _session.Transaction.Begin();
+        }
+
+        private void LoadReferences(TEntity entity)
+        {
+            var referenceProperties = typeof(TEntity).GetProperties().Where(x => typeof(IEntity).IsAssignableFrom(x.PropertyType)).ToArray();
+            foreach (var property in referenceProperties)
+            {
+                var propValue = property.GetValue(entity);
+                if (propValue != null)
+                {
+                    var id = propValue.GetType().GetProperty("Id").GetValue(propValue);
+                    var referencedEntity = _session.Load(property.PropertyType, id);
+
+                    property.SetValue(entity, referencedEntity);
+                }
+                else
+                    property.SetValue(entity, null);
+            }
         }
 
         #endregion Private methods

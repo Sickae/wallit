@@ -17,12 +17,12 @@ namespace WallIT.Logic.Managers
         {
             var result = new TransactionResult
             {
-                IsSuccess = true
+                Succeeded = true
             };
 
             if (string.IsNullOrEmpty(entity.Name))
             {
-                result.IsSuccess = false;
+                result.Succeeded = false;
                 // TODO localization
                 result.ErrorMessages.Add(new TransactionErrorMessage
                 {

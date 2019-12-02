@@ -4,7 +4,7 @@ using WallIT.Shared.Interfaces.UnitOfWork;
 
 namespace WallIT.Logic.UnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly ISession _session;
 
@@ -65,6 +65,12 @@ namespace WallIT.Logic.UnitOfWork
             IsManagedTransaction = false;
 
             _session.Clear();
+        }
+
+        public void Dispose()
+        {
+            if (transaction != null && transaction.IsActive)
+                Rollback();
         }
     }
 }

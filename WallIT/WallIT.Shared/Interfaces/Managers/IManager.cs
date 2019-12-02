@@ -5,7 +5,7 @@ using WallIT.Shared.Transaction;
 
 namespace WallIT.Shared.Interfaces.Managers
 {
-    public interface IManagerBase<TEntity, TDTO>
+    public interface IManager<TEntity, TDTO>
         where TEntity : IEntity
         where TDTO : IDTO
     {

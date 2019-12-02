@@ -4,6 +4,6 @@ using WallIT.Shared.Interfaces.Managers;
 
 namespace WallIT.Logic.Interfaces.Managers
 {
-    public interface ICreditCardManager : IManagerBase<CreditCardEntity, CreditCardDTO>
+    public interface ICreditCardManager : IManager<CreditCardEntity, CreditCardDTO>
     { }
 }
