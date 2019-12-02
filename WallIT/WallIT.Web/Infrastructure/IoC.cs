@@ -22,6 +22,7 @@ namespace WallIT.Web.Infrastructure
         {
             SetupSingletons(services, configuration);
             SetupScoped(services);
+            SetupTransient(services);
         }
 
         private static void SetupSingletons(IServiceCollection services, IConfiguration configuration)
@@ -49,7 +50,10 @@ namespace WallIT.Web.Infrastructure
             services.AddScoped<ICreditCardRepository, CreditCardRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserClaimRepository, UserClaimRepository>();
+        }
 
+        private static void SetupTransient(IServiceCollection services)
+        {
             // Validators
             services.AddTransient<IValidator<UserDTO>, UserDTOValidator>();
             services.AddTransient<IValidator<LoginModel>, LoginModelValidator>();

@@ -1,4 +1,5 @@
 ﻿using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using WallIT.Logic.Identity;
 using WallIT.Logic.Mapping;
+using WallIT.Logic.Mediator.Handlers.QueryHandlers;
 using WallIT.Web.Infrastructure;
 
 namespace WallIT.Web
@@ -82,6 +84,8 @@ namespace WallIT.Web
             services.AddMvc(opt => opt.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation();
+
+            services.AddMediatR(typeof(GetUserByIdQueryHandler)); // handlers are stored in the WallIT.Logic assembly
 
             AutoMapperSetup.Init(services);
         }
