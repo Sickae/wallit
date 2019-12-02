@@ -1,13 +1,18 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using FluentValidation;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
 using WallIT.DataAccess.SessionBuilder;
+using WallIT.Logic.Identity;
 using WallIT.Logic.Interfaces.Managers;
 using WallIT.Logic.Interfaces.Repositories;
 using WallIT.Logic.Managers;
 using WallIT.Logic.Repositories;
 using WallIT.Logic.UnitOfWork;
+using WallIT.Shared.DTOs;
 using WallIT.Shared.Interfaces.UnitOfWork;
+using WallIT.Web.Models;
+using WallIT.Web.Validators;
 
 namespace WallIT.Web.Infrastructure
 {
@@ -30,11 +35,25 @@ namespace WallIT.Web.Infrastructure
             services.AddScoped(x => x.GetService<ISessionFactory>().OpenSession());
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            // Identity
+            services.AddScoped<AppIdentityUserManager, AppIdentityUserManager>();
+            services.AddScoped<AppSignInManager, AppSignInManager>();
+            services.AddScoped<AppIdentityErrorDescriber, AppIdentityErrorDescriber>();
+
             // Managers
             services.AddScoped<ICreditCardManager, CreditCardManager>();
+            services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<IUserClaimManager, UserClaimManager>();
 
             // Repositories
             services.AddScoped<ICreditCardRepository, CreditCardRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserClaimRepository, UserClaimRepository>();
+
+            // Validators
+            services.AddTransient<IValidator<UserDTO>, UserDTOValidator>();
+            services.AddTransient<IValidator<LoginModel>, LoginModelValidator>();
+            services.AddTransient<IValidator<RegisterModel>, RegisterModelValidator>();
         }
     }
 }

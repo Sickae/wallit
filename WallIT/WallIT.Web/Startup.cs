@@ -1,4 +1,4 @@
-using FluentValidation.AspNetCore;
+﻿using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using System;
+using WallIT.Logic.Identity;
 using WallIT.Logic.Mapping;
 using WallIT.Web.Infrastructure;
 
@@ -25,8 +25,6 @@ namespace WallIT.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddControllersWithViews();
-
             services.Configure<CookiePolicyOptions>(opt =>
             {
                 opt.CheckConsentNeeded = context => true;
@@ -35,7 +33,6 @@ namespace WallIT.Web
 
             IoC.Setup(services, Configuration);
 
-            // TODO finish
             services.Configure<IdentityOptions>(opt =>
             {
                 opt.Password.RequiredLength = 5;
@@ -43,8 +40,18 @@ namespace WallIT.Web
                 opt.Password.RequireLowercase = false;
                 opt.Password.RequireUppercase = false;
                 opt.Password.RequireNonAlphanumeric = false;
+
+                opt.Lockout.AllowedForNewUsers = true;
+                opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(1);
+                opt.Lockout.MaxFailedAccessAttempts = 5;
             });
-            //services.AddIdentityCore
+
+            services.AddIdentityCore<AppIdentityUser>()
+                .AddDefaultTokenProviders()
+                .AddUserStore<AppIdentityUserStore>()
+                .AddUserManager<AppIdentityUserManager>()
+                .AddSignInManager<AppSignInManager>()
+                .AddErrorDescriber<AppIdentityErrorDescriber>();
 
             services.AddAuthentication(opt =>
             {
@@ -60,9 +67,17 @@ namespace WallIT.Web
                 opt.LoginPath = "/Account/Login";
                 opt.LogoutPath = "/Account/Logout";
                 opt.AccessDeniedPath = "/Home/AccessDenied";
+                opt.ReturnUrlParameter = "returnUrl";
+            });
+
+            services.Configure<DataProtectionTokenProviderOptions>(opt =>
+            {
+                opt.TokenLifespan = TimeSpan.FromHours(3);
             });
 
             services.AddDistributedMemoryCache();
+
+            services.AddSession();
 
             services.AddMvc(opt => opt.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
@@ -88,7 +103,11 @@ namespace WallIT.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseCookiePolicy();
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                MinimumSameSitePolicy = SameSiteMode.Strict
+            });
+            app.UseSession();
             app.UseAuthentication();
 
             app.UseMvc(routes =>
