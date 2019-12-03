@@ -45,11 +45,13 @@ namespace WallIT.Web.Infrastructure
             services.AddScoped<ICreditCardManager, CreditCardManager>();
             services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<IUserClaimManager, UserClaimManager>();
+            services.AddScoped<IRecordManager, RecordManager>();
 
             // Repositories
             services.AddScoped<ICreditCardRepository, CreditCardRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserClaimRepository, UserClaimRepository>();
+            services.AddScoped<IRecordRepository, RecordRepository>();
         }
 
         private static void SetupTransient(IServiceCollection services)
