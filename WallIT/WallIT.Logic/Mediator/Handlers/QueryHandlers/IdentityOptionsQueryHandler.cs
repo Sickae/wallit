@@ -19,6 +19,8 @@ namespace WallIT.Logic.Mediator.Handlers.QueryHandlers
 
         public Task<IList<string>> Handle(IdentityOptionsQuery request, CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             var pwdOptions = _identityOptions.Value.Password;
             var pwdInfo = new List<string>();
 

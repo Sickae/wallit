@@ -27,6 +27,8 @@ namespace WallIT.Logic.Mediator.Handlers.CommandHandlers
 
         public async Task<ActionResult> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             _unitOfWork.BeginTransaction();
 
             var appUser = _mapper.Map<AppIdentityUser>(request.User);
