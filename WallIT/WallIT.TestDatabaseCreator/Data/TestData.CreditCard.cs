@@ -1,14 +1,11 @@
-﻿using NHibernate;
-using System;
-using WallIT.DataAccess.Entities;
+﻿using WallIT.DataAccess.Entities;
 
-namespace WallIT.TestDataBaseCreator.Data
+namespace WallIT.TestDatabaseCreator.Data
 {
     static partial class TestData
     {
-        internal static void CreateCreditCards(ISession session)
+        internal static void CreateCreditCards()
         {
-            Console.WriteLine("Inserting Credit Cards...");
             for (var i = 0; i < 3; i++)
             {
                 var cc = new CreditCardEntity
@@ -16,7 +13,7 @@ namespace WallIT.TestDataBaseCreator.Data
                     Name = $"Credit Card #{i + 1}"
                 };
 
-                session.Save(cc);
+                InsertEntity(cc);
             }
         }
     }

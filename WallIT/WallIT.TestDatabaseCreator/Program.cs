@@ -4,7 +4,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using WallIT.DataAccess.SessionBuilder;
-using WallIT.TestDataBaseCreator.Data;
+using WallIT.TestDatabaseCreator.Data;
 
 namespace WallIT.TestDataBaseCreator
 {
@@ -79,7 +79,11 @@ namespace WallIT.TestDataBaseCreator
             Console.ForegroundColor = ConsoleColor.Green;
             using (var trans = session.BeginTransaction())
             {
-                TestData.CreateCreditCards(session);
+                TestData.session = session;
+
+                TestData.CreateCreditCards();
+                TestData.CreateUsers();
+
                 trans.Commit();
             }
             Console.ForegroundColor = ConsoleColor.White;
