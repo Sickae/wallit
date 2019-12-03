@@ -21,9 +21,4 @@
     <ProjectReference Include="..\WallIT.Shared\WallIT.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mediator\Commands\" />
-    <Folder Include="Mediator\Handlers\CommandHandlers\" />
-  </ItemGroup>
-
 </Project>
