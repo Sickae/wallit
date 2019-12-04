@@ -37,6 +37,10 @@ namespace WallIT.Logic.Mapping
             CreateMap<UserClaimDTO, AppIdentityUserClaim>().ReverseMap();
 
             CreateMap<RecordEntity, RecordDTO>().ReverseMap();
+
+            CreateMap<AccountEntity, AccountDTO>().ReverseMap();
+
+            CreateMap<RecordCategoryEntity, RecordCategoryDTO>().ReverseMap();
         }
     }
 }
