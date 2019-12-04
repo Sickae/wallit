@@ -38,9 +38,15 @@ namespace WallIT.Logic.Mapping
 
             CreateMap<RecordEntity, RecordDTO>().ReverseMap();
 
-            CreateMap<AccountEntity, AccountDTO>().ReverseMap();
+            CreateMap<AccountEntity, AccountDTO>()
+                .ForMember(dest => dest.UserId, m => m.MapFrom(src => src.User != null ? src.User.Id : (int?)null));
+            CreateMap<AccountDTO, AccountEntity>()
+                .ForMember(dest => dest.User, m => m.MapFrom(src => src.UserId.HasValue ? new UserEntity { Id = src.UserId.Value } : null));
 
-            CreateMap<RecordCategoryEntity, RecordCategoryDTO>().ReverseMap();
+            CreateMap<RecordCategoryEntity, RecordCategoryDTO>()
+                .ForMember(dest => dest.ParentCategoryId, m => m.MapFrom(src => src.ParentCategory != null ? src.ParentCategory.Id : (int?)null));
+            CreateMap<RecordCategoryDTO, RecordCategoryEntity>()
+                .ForMember(dest => dest.ParentCategory, m => m.MapFrom(src => src.ParentCategoryId.HasValue ? new UserEntity { Id = src.ParentCategoryId.Value } : null));
         }
     }
 }

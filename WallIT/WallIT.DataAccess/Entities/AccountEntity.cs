@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WallIT.DataAccess.Entities.Base;
+﻿using WallIT.DataAccess.Entities.Base;
 using WallIT.Shared.Enums;
 
 namespace WallIT.DataAccess.Entities
