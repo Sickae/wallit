@@ -1,3 +1,4 @@
+﻿using AutoMapper;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -120,7 +121,7 @@ namespace WallIT.Web
 
             services.AddMediatR(typeof(GetUserByIdQueryHandler)); // handlers are stored in the WallIT.Logic assembly
 
-            AutoMapperSetup.Init(services);
+            services.AddAutoMapper(cfg => SetupAutoMapperConfiguration(cfg), GetAutoMapperProfileAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -147,12 +148,30 @@ namespace WallIT.Web
             app.UseSession();
             app.UseAuthentication();
 
+            var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(options.Value);
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private static void SetupAutoMapperConfiguration(IMapperConfigurationExpression cfg)
+        {
+            cfg.AllowNullCollections = true;
+        }
+
+        private static Assembly[] GetAutoMapperProfileAssemblies()
+        {
+            var assemblies = new[]
+            {
+                Assembly.GetAssembly(typeof(AutoMapperBaseProfile))
+            };
+
+            return assemblies;
         }
     }
 }

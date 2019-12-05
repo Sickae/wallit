@@ -13,7 +13,7 @@ namespace WallIT.TestDataBaseCreator
         private static IConfigurationRoot _config;
         private static string _connectionString;
 
-        static void Main(string[] args)
+        static void Main()
         {
             Console.ForegroundColor = ConsoleColor.White;
             Init();
@@ -32,11 +32,9 @@ namespace WallIT.TestDataBaseCreator
                 var configuration = SessionFactory.BuildConfiguration(_connectionString);
 
                 var sessionFactory = configuration.BuildSessionFactory();
-                using (var session = sessionFactory.OpenSession())
-                {
-                    Console.WriteLine("Creating test data...");
-                    CreateTestData(session);
-                }
+                using var session = sessionFactory.OpenSession();
+                Console.WriteLine("Creating test data...");
+                CreateTestData(session);
             }
             catch (Exception ex)
             {

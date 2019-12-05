@@ -16,8 +16,6 @@ namespace WallIT.Logic.Identity
     public class AppIdentityUserManager : UserManager<AppIdentityUser>
     {
         private readonly CancellationToken _cancellationToken;
-        private readonly IPasswordHasher<AppIdentityUser> _passwordHasher;
-        private readonly AppIdentityErrorDescriber _errors;
         private readonly IUserClaimRepository _userClaimRepository;
 
         public AppIdentityUserManager(IUserStore<AppIdentityUser> store,
@@ -31,8 +29,6 @@ namespace WallIT.Logic.Identity
             : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
         {
             _cancellationToken = services?.GetService<IHttpContextAccessor>()?.HttpContext?.RequestAborted ?? CancellationToken.None;
-            _passwordHasher = passwordHasher;
-            _errors = errors;
             _userClaimRepository = userClaimRepository;
         }
 

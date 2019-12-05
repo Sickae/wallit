@@ -22,9 +22,11 @@ namespace WallIT.Logic.Mediator.Handlers.QueryHandlers
             cancellationToken.ThrowIfCancellationRequested();
 
             var pwdOptions = _identityOptions.Value.Password;
-            var pwdInfo = new List<string>();
+            var pwdInfo = new List<string>
+            {
+                $"Password must be at least {pwdOptions.RequiredLength} characters long!"
+            };
 
-            pwdInfo.Add($"Password must be at least {pwdOptions.RequiredLength} characters long!");
             if (pwdOptions.RequireDigit)
                 pwdInfo.Add("Password must contain a digit!");
             if (pwdOptions.RequireLowercase)
