@@ -36,17 +36,34 @@ namespace WallIT.Logic.Mapping
 
             CreateMap<UserClaimDTO, AppIdentityUserClaim>().ReverseMap();
 
-            CreateMap<RecordEntity, RecordDTO>().ReverseMap();
+            //Record
+            //CreateMap<RecordEntity, RecordDTO>().ReverseMap();
+            CreateMap<RecordEntity, RecordDTO>()
+                .ForMember(dest => dest.AccountId, m => m.MapFrom(src => src.Account != null ? src.Account.Id : (int?)null))
+                .ForMember(dest => dest.RecordCategoryId, m => m.MapFrom(src => src.RecordCategory != null ? src.RecordCategory.Id : (int?)null));
+            CreateMap<RecordDTO, RecordEntity>()
+                .ForMember(dest => dest.Account, m => m.MapFrom(src => src.AccountId.HasValue ? new AccountEntity { Id = src.AccountId.Value } : null))
+                .ForMember(dest => dest.RecordCategory, m => m.MapFrom(src => src.RecordCategoryId.HasValue ? new RecordCategoryEntity { Id = src.RecordCategoryId.Value } : null));
 
+            //Account
             CreateMap<AccountEntity, AccountDTO>()
                 .ForMember(dest => dest.UserId, m => m.MapFrom(src => src.User != null ? src.User.Id : (int?)null));
             CreateMap<AccountDTO, AccountEntity>()
                 .ForMember(dest => dest.User, m => m.MapFrom(src => src.UserId.HasValue ? new UserEntity { Id = src.UserId.Value } : null));
 
+            //RecordCategory
             CreateMap<RecordCategoryEntity, RecordCategoryDTO>()
                 .ForMember(dest => dest.ParentCategoryId, m => m.MapFrom(src => src.ParentCategory != null ? src.ParentCategory.Id : (int?)null));
             CreateMap<RecordCategoryDTO, RecordCategoryEntity>()
                 .ForMember(dest => dest.ParentCategory, m => m.MapFrom(src => src.ParentCategoryId.HasValue ? new UserEntity { Id = src.ParentCategoryId.Value } : null));
+
+            //RecordTemplate
+            CreateMap<RecordTemplateEntity, RecordTemplateDTO>()
+                .ForMember(dest => dest.AccountId, m => m.MapFrom(src => src.Account != null ? src.Account.Id : (int?)null))
+                .ForMember(dest => dest.RecordCategoryId, m => m.MapFrom(src => src.RecordCategory != null ? src.RecordCategory.Id : (int?)null));
+            CreateMap<RecordTemplateDTO, RecordTemplateEntity>()
+                .ForMember(dest => dest.Account, m => m.MapFrom(src => src.AccountId.HasValue ? new AccountEntity { Id = src.AccountId.Value } : null))
+                .ForMember(dest => dest.RecordCategory, m => m.MapFrom(src => src.RecordCategoryId.HasValue ? new RecordCategoryEntity { Id = src.RecordCategoryId.Value } : null));
         }
     }
 }

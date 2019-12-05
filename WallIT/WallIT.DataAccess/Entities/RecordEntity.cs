@@ -6,9 +6,9 @@ namespace WallIT.DataAccess.Entities
 {
     public class RecordEntity : EntityBase
     {
-        //public virtual RecordCategory RecordCategory { get; set; }
+        public virtual RecordCategoryEntity RecordCategory { get; set; }
 
-        //public virtual Account Account { get; set; }
+        public virtual AccountEntity Account { get; set; }
 
         public virtual double Amount { get; set; }
 

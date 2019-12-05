@@ -6,9 +6,11 @@ namespace WallIT.Shared.DTOs
 {
     public class RecordDTO : DTOBase
     {
-        //public RecordCategory RecordCategory { get; set; }
+        public RecordCategoryDTO RecordCategory { get; set; }
+        public int? RecordCategoryId { get; set; }
 
-        //public Account Account { get; set; }
+        public AccountDTO Account { get; set; }
+        public int? AccountId { get; set; }
 
         public double Amount { get; set; }
 
