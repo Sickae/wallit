@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Threading.Tasks;
 using WallIT.Logic.Mediator.Commands;
 using WallIT.Logic.Mediator.Queries;
@@ -10,10 +11,12 @@ namespace WallIT.Web.Controllers
     public class UserAccountController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IStringLocalizer<UserAccountController> _localizer;
 
-        public UserAccountController(IMediator mediator)
+        public UserAccountController(IMediator mediator, IStringLocalizer<UserAccountController> localizer)
         {
             _mediator = mediator;
+            _localizer = localizer;
         }
 
         public IActionResult Index()
@@ -24,7 +27,8 @@ namespace WallIT.Web.Controllers
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
-            SetTitle("Login");
+            var title = _localizer["Login"];
+            SetTitle(title);
 
             var model = new LoginModel
             {
@@ -53,7 +57,7 @@ namespace WallIT.Web.Controllers
             if (!result.Suceeded)
             {
                 foreach (var msg in result.ErrorMessages)
-                    ModelState.AddModelError("", msg);
+                    ModelState.AddModelError("", _localizer[msg]);
 
                 return View(model);
             }

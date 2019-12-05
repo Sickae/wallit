@@ -12,6 +12,7 @@ using WallIT.Logic.UnitOfWork;
 using WallIT.Shared.DTOs;
 using WallIT.Shared.Interfaces.UnitOfWork;
 using WallIT.Web.Models;
+using WallIT.Web.Services;
 using WallIT.Web.Validators;
 
 namespace WallIT.Web.Infrastructure
@@ -29,6 +30,7 @@ namespace WallIT.Web.Infrastructure
         {
             services.AddSingleton(SessionFactory.BuildConfiguration(configuration.GetConnectionString("wallit"))
                 .BuildSessionFactory());
+            services.AddSingleton<LocalizationService>();
         }
 
         private static void SetupScoped(IServiceCollection services)
