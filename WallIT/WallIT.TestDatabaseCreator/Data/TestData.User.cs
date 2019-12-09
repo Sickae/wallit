@@ -18,7 +18,8 @@ namespace WallIT.TestDatabaseCreator.Data
                 PasswordHash = "AQAAAAEAACcQAAAAEEwE0nJJF+kuPBI1Qhn99jS0aLcxbDmWLdpUfWO/h31PVOCeUlW2n4z4Mnkp80fcdw==", // 12345
                 SecurityStamp = "Y2HA3UVELZRLEOJ4L7TO5MRFGX5WLRBI",
                 CreationDateUTC = DateTime.UtcNow,
-                ModificationDateUTC = DateTime.UtcNow
+                ModificationDateUTC = DateTime.UtcNow,
+                IsDeleted = false
             };
             InsertEntity(user1);
 
@@ -31,7 +32,8 @@ namespace WallIT.TestDatabaseCreator.Data
                 PasswordHash = "AQAAAAEAACcQAAAAEEwE0nJJF+kuPBI1Qhn99jS0aLcxbDmWLdpUfWO/h31PVOCeUlW2n4z4Mnkp80fcdw==", // 12345
                 SecurityStamp = "Y2HA3UVELZRLEOJ4L7TO5MRFGX5WLRBI",
                 CreationDateUTC = DateTime.UtcNow,
-                ModificationDateUTC = DateTime.UtcNow
+                ModificationDateUTC = DateTime.UtcNow,
+                IsDeleted = false
             };
             InsertEntity(user2);
 

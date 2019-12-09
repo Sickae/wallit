@@ -36,6 +36,7 @@ namespace WallIT.DataAccess.SessionBuilder
             config = config.Mappings(m => m.AutoMappings.Add(
                 AutoMap.AssemblyOf<EntityBase>(new StoreConfiguration())
                     .IgnoreBase<EntityBase>()
+                    .IgnoreBase<LogicalEntityBase>()
                     .Conventions.Add<CustomTableNameConvention>()
                     .Conventions.Add<CustomPropertyConvention>()
                     .Conventions.Add<TextConvention>()

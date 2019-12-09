@@ -3,6 +3,8 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using WallIT.Common.Interfaces;
 using WallIT.DataAccess.Entities.Base;
 using WallIT.Shared.DTOs.Base;
 using WallIT.Shared.Interfaces.DomainModel.DTO;
@@ -13,7 +15,7 @@ using WallIT.Shared.Transaction;
 
 namespace WallIT.Logic.Managers
 {
-    public abstract class ManagerBase<TEntity, TDTO> : IManager<TEntity, TDTO>, IDisposable
+    public abstract class ManagerBase<TEntity, TDTO> : IManager<TEntity, TDTO>, IDisposable//, ILogicalDeletable
         where TEntity : EntityBase, IEntity, new()
         where TDTO : DTOBase, IDTO, new()
     {
@@ -32,7 +34,39 @@ namespace WallIT.Logic.Managers
 
         public TransactionResult Delete(int id)
         {
-            throw new NotImplementedException();
+            ManageTransaction();
+
+            var entity = _session.Load<TEntity>(id);
+
+            var result = ValidateDeleting(entity);
+
+            if (result.Succeeded)
+            {
+                OnDeleting(entity);
+
+                try
+                { 
+                    if (typeof(ILogicalDeletable).IsAssignableFrom(entity.GetType()))
+                    {
+                        ((ILogicalDeletable)entity).IsDeleted = true;
+                        ((ILogicalDeletable)entity).DeletionDateUTC = DateTime.UtcNow;
+                    }
+                    else
+                    {
+                        _session.Delete(entity);
+                    }
+                }
+                catch (Exception e)
+                {
+                    result.ErrorMessages.Add(new TransactionErrorMessage
+                    {
+                        IsPublic = false, 
+                        Message = e.Message
+                    }); 
+                }
+            }
+            HandleTransactionErrors(result);
+            return result;
         }
 
         public TransactionResult Delete(IEnumerable<int> ids)
@@ -111,8 +145,26 @@ namespace WallIT.Logic.Managers
         protected virtual void OnDeleting(TEntity entity)
         { }
 
-        protected virtual void AfterDeleting(TEntity entity)
-        { }
+        protected virtual TransactionResult ValidateDeleting(TEntity entity)
+        {
+            if (entity == null ||
+                (typeof(ILogicalDeletable).IsAssignableFrom(entity.GetType()) && ((ILogicalDeletable)entity).IsDeleted))
+            {
+                return new TransactionResult
+                {
+                    Succeeded = false,
+                    ErrorMessages = new List<TransactionErrorMessage>
+                    {
+                        new TransactionErrorMessage
+                        {
+                            IsPublic = true,
+                            Message = "Entity doesn't exist or is already deleted!"
+                        }
+                    }
+                };
+            }
+            return new TransactionResult { Succeeded = true };
+        }
 
         #endregion Virtual methods
 

@@ -3,7 +3,7 @@ using WallIT.DataAccess.Entities.Base;
 
 namespace WallIT.DataAccess.Entities
 {
-    public class UserEntity : EntityBase
+    public class UserEntity : LogicalEntityBase
     {
         public virtual string Name { get; set; }
 
