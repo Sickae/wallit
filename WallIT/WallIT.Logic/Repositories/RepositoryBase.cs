@@ -2,6 +2,7 @@
 using NHibernate;
 using System.Collections.Generic;
 using System.Linq;
+using WallIT.Common.Interfaces;
 using WallIT.DataAccess.Entities.Base;
 using WallIT.Shared.DTOs.Base;
 using WallIT.Shared.Interfaces.DomainModel.DTO;
@@ -26,6 +27,10 @@ namespace WallIT.Logic.Repositories
         public TDTO Get(int id)
         {
             var entity = _session.Get<TEntity>(id);
+            if(entity is ILogicalDeletable deletableentity && deletableentity.IsDeleted)
+            {
+                entity = null;
+            }
             var dto = _mapper.Map<TDTO>(entity);
             return dto;
         }
@@ -37,6 +42,10 @@ namespace WallIT.Logic.Repositories
             foreach (var id in ids)
             {
                 var entity = _session.Get<TEntity>(id);
+                if (entity is ILogicalDeletable deletableentity && deletableentity.IsDeleted)
+                {
+                    entity = null;
+                }
                 if (entity != null)
                     entities.Add(entity);
             }
@@ -47,7 +56,12 @@ namespace WallIT.Logic.Repositories
 
         public TDTO[] GetAll()
         {
-            var entities = _session.QueryOver<TEntity>().List();
+            var query = _session.QueryOver<TEntity>();
+            if (typeof(ILogicalDeletable).IsAssignableFrom(typeof(TEntity)))
+            {
+                query.Where(x => ((ILogicalDeletable)x).IsDeleted == false);
+            }
+            var entities = query.List();
             var dtos = _mapper.Map<IList<TDTO>>(entities);
 
             return dtos.ToArray();
