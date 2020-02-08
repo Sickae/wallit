@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WallIT.Common", "WallIT.Com
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WallIT.TestDatabaseCreator", "WallIT.TestDatabaseCreator\WallIT.TestDatabaseCreator.csproj", "{CCC0E876-DF14-4862-B1FF-71B023DCEB80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallIT.Web", "WallIT.Web\WallIT.Web.csproj", "{C3943354-9045-422A-AC5A-259B1686C003}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WallIT.Web", "WallIT.Web\WallIT.Web.csproj", "{C3943354-9045-422A-AC5A-259B1686C003}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WallIT.Logic.Test", "WallIT.Logic.Test\WallIT.Logic.Test.csproj", "{AB70822C-CB65-427C-B142-68B3A97F1590}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{C3943354-9045-422A-AC5A-259B1686C003}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3943354-9045-422A-AC5A-259B1686C003}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3943354-9045-422A-AC5A-259B1686C003}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB70822C-CB65-427C-B142-68B3A97F1590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB70822C-CB65-427C-B142-68B3A97F1590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB70822C-CB65-427C-B142-68B3A97F1590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB70822C-CB65-427C-B142-68B3A97F1590}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
