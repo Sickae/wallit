@@ -18,6 +18,7 @@ using System.Reflection;
 using WallIT.Logic.Identity;
 using WallIT.Logic.Mapping;
 using WallIT.Logic.Mediator.Handlers.QueryHandlers;
+using WallIT.Logic.Services;
 using WallIT.Web.Infrastructure;
 using WallIT.Web.SharedResource;
 
@@ -122,6 +123,8 @@ namespace WallIT.Web
             services.AddMediatR(typeof(GetUserByIdQueryHandler)); // handlers are stored in the WallIT.Logic assembly
 
             services.AddAutoMapper(cfg => SetupAutoMapperConfiguration(cfg), GetAutoMapperProfileAssemblies());
+            services.AddScoped<DeleteAccountService>();
+            services.AddScoped<EditAccountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
