@@ -67,6 +67,7 @@ namespace WallIT.Web.Infrastructure
             services.AddTransient<IValidator<UserDTO>, UserDTOValidator>();
             services.AddTransient<IValidator<LoginModel>, LoginModelValidator>();
             services.AddTransient<IValidator<RegisterModel>, RegisterModelValidator>();
+            services.AddTransient<IValidator<AccountDTO>, AccountDTOValidator>();
         }
     }
 }
