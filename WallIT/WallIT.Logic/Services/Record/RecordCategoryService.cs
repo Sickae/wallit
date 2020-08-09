@@ -10,25 +10,24 @@ using WallIT.Shared.DTOs;
 
 namespace WallIT.Logic.Services
 {
-    public class EditAccountService
+    public class RecordCategoryService
     {
         private readonly IMediator _mediator;
 
-        public EditAccountService(IMediator mediator)
+        public RecordCategoryService(IMediator mediator)
         {
             _mediator = mediator;
         }
-        public async Task<ActionResult> EditAccount(AccountDTO account,int AccountId, int UserId)
+        /*public async Task<ActionResult> EditRecordCategory(RecordCategoryDTO recordcategory, int UserId)
         {
             var result = new ActionResult();
-            account.UserId = UserId;
             var query = new GetAccountByAccountAndUserId
             {
-                AccountId = AccountId,
+                AccountId = recordcategory.AccountId.Value,
                 UserId = UserId
             };
-            var QueryResult = await _mediator.Send(query);
-            if (QueryResult == null)
+            var account = await _mediator.Send(query);
+            if (account == null)
             {
                 result.Suceeded = false;
                 result.ErrorMessages.Add("You don't have the right to edit this!");
@@ -36,9 +35,9 @@ namespace WallIT.Logic.Services
             }
             else
             {
-                var command = new EditAccountCommand
+                var command = new EditRecordCategoryCommand
                 {
-                    account = account
+                    RecordCategory = recordcategory
                 };
                 var CommandResult = await _mediator.Send(command);
                 if (CommandResult.Suceeded)
@@ -51,7 +50,8 @@ namespace WallIT.Logic.Services
                         result.ErrorMessages.Add(msg);
                 }
             }
-                return result;
-        }
+
+            return result;
+        }*/
     }
 }

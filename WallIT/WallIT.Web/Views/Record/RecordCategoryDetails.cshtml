@@ -1,0 +1,19 @@
+﻿@model WallIT.Shared.DTOs.RecordCategoryDTO
+
+<div class="form-group">
+    <label asp-for="Name" class="control-label"></label>
+    <input asp-for="Name" class="form-control" />
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="ParentCategoryId" class="control-label"></label>
+    <input asp-for="ParentCategoryId" class="form-control" />
+    <span asp-validation-for="ParentCategoryId" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="LastUsedUTC" class="control-label"></label>
+    <input asp-for="LastUsedUTC" class="form-control" />
+    <span asp-validation-for="LastUsedUTC" class="text-danger"></span>
+</div>
+
+

@@ -21,7 +21,9 @@ namespace WallIT.Logic.Mediator.Handlers.QueryHandlers
         public Task<AccountDTO> Handle(GetAccountByAccountAndUserId request, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var account = _accountRepository.GetAll();
+
+            var account = _accountRepository.GetAccountByAccountAndUserId(request.AccountId, request.UserId);
+
             return Task.FromResult(account);
         }
     }

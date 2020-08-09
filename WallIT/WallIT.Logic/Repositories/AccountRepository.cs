@@ -12,7 +12,7 @@ namespace WallIT.Logic.Repositories
         public AccountRepository(ISession session, IMapper mapper) : base(session, mapper)
         { }
 
-        public IDTO GetAccountByAccountAndUserId(int accountId, int UserId)
+        public AccountDTO GetAccountByAccountAndUserId(int accountId, int UserId)
         {
             var result = _session.QueryOver<AccountEntity>()
                 .Where(x => x.Id == accountId)

@@ -123,8 +123,10 @@ namespace WallIT.Web
             services.AddMediatR(typeof(GetUserByIdQueryHandler)); // handlers are stored in the WallIT.Logic assembly
 
             services.AddAutoMapper(cfg => SetupAutoMapperConfiguration(cfg), GetAutoMapperProfileAssemblies());
-            services.AddScoped<DeleteAccountService>();
-            services.AddScoped<EditAccountService>();
+            services.AddScoped<AccountService>();
+            services.AddScoped<RecordService>();
+            services.AddScoped<RecordCategoryService>();
+            services.AddScoped<RecordTemplateService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

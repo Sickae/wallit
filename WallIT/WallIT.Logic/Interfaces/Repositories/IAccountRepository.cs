@@ -10,6 +10,6 @@ namespace WallIT.Logic.Interfaces.Repositories
 {
     public interface IAccountRepository : IRepository<AccountEntity, AccountDTO>
     {
-        IDTO GetAccountByAccountAndUserId(int accountId, int UserId);
+        AccountDTO GetAccountByAccountAndUserId(int accountId, int UserId);
     }
 }

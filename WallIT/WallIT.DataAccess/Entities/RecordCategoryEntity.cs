@@ -10,5 +10,6 @@ namespace WallIT.DataAccess.Entities
         public virtual RecordCategoryEntity ParentCategory { get; set; }
 
         public virtual DateTime? LastUsedUTC { get; set; }
+        //public virtual AccountEntity AccountEntity { get; set; }
     }
 }

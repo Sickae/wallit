@@ -19,13 +19,11 @@ namespace WallIT.Web.Controllers
         private readonly IMediator _mediator;
         private readonly IStringLocalizer<AccountController> _localizer;
         private readonly UserManager<AppIdentityUser> _userManager;
-        private readonly DeleteAccountService _deleteAccountService;
-        private readonly EditAccountService _editAccountService; 
-        public AccountController(IMediator mediator, UserManager<AppIdentityUser> userManager, DeleteAccountService deleteAccountService, EditAccountService editAccountService, IStringLocalizer<AccountController> localizer)
+        private readonly AccountService _editAccountService; 
+        public AccountController(IMediator mediator, UserManager<AppIdentityUser> userManager, AccountService editAccountService, IStringLocalizer<AccountController> localizer)
         {
             _mediator = mediator;
             _userManager = userManager;
-            _deleteAccountService = deleteAccountService;
             _editAccountService = editAccountService;
             _localizer = localizer;
         }

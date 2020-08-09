@@ -6,8 +6,8 @@ using WallIT.Logic.DTOs;
 
 namespace WallIT.Logic.Mediator.Commands
 {
-    public class DeleteAccountCommand : IRequest<ActionResult>
+    public class DeleteRecordTemplateCommand : IRequest<ActionResult>
     {
-        public int AccountId { get; set; }
+        public int Id { get; set; }
     }
 }

@@ -12,5 +12,7 @@ namespace WallIT.Shared.DTOs
         public RecordCategoryDTO ParentCategory { get; set; }
 
         public DateTime? LastUsedUTC { get; set; }
+        //public AccountDTO Account { get; set; }
+        //public int? AccountId { get; set; }
     }
 }
